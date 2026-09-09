@@ -4,28 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Evelyn</title>
-    <!-- Menghubungkan CSS -->
     <link rel="stylesheet" href="style.css">
-    <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Background Flowers (Bunga Melayang) -->
     <div class="flowers-bg" id="bg-flowers"></div>
 
     <!-- SCREEN 1: LOADING -->
     <div id="screen-loading" class="screen active">
-        <div class="logo">🌷</div>
+        <div class="logo">LOGO</div>
         <p>Preparing something special for you...</p>
     </div>
 
-    <!-- SCREEN 2: PIN PASSWORD -->
+    <!-- SCREEN 2: PIN -->
     <div id="screen-pin" class="screen">
         <div class="glass">
             <h2>For You, Evelyn</h2>
             <p>Enter our secret code</p>
-            
             <div class="pin-display" id="pin-display">
                 <div class="pin-dot"></div>
                 <div class="pin-dot"></div>
@@ -34,7 +30,6 @@
                 <div class="pin-dot"></div>
                 <div class="pin-dot"></div>
             </div>
-
             <div class="pin-pad" id="pin-pad">
                 <button class="pin-btn" onclick="inputPin(1)">1</button>
                 <button class="pin-btn" onclick="inputPin(2)">2</button>
@@ -45,35 +40,38 @@
                 <button class="pin-btn" onclick="inputPin(7)">7</button>
                 <button class="pin-btn" onclick="inputPin(8)">8</button>
                 <button class="pin-btn" onclick="inputPin(9)">9</button>
-                <button class="pin-btn icon" onclick="removePin()">⌫</button>
+                <button class="pin-btn icon" onclick="removePin()">X</button>
                 <button class="pin-btn" onclick="inputPin(0)">0</button>
-                <button class="pin-btn icon" onclick="resetPin()">✕</button>
+                <button class="pin-btn icon" onclick="resetPin()">DEL</button>
             </div>
-            
-            <p class="hint">Hint: our special date 💗</p>
+            <p class="hint">Hint: our special date</p>
         </div>
     </div>
 
     <!-- SCREEN 3: GIFT -->
     <div id="screen-gift" class="screen" onclick="openGift()">
-        <p>✨ Opening your gift... ✨</p>
-        <div class="gift-box">🎁</div>
+        <p>Opening your gift...</p>
+        <div class="gift-box" id="gift-box">
+            <div class="lid"></div>
+            <div class="base"></div>
+            <div class="surprise" id="surprise-effect">SURPRISE!</div>
+        </div>
     </div>
 
-    <!-- SCREEN 4: MAIN PAGE -->
+    <!-- SCREEN 4: MAIN -->
     <div id="screen-main" class="screen">
         
         <h1>Happy<br><span>Birthday</span><br>Evelyn</h1>
         <div class="line"></div>
         <p class="date">September 11 — The most special day</p>
 
-        <!-- SECTION 1: BUNGA -->
+        <!-- BUNGA (SVG) -->
         <div id="bouquet-section" class="section-glass glass">
-            <h3 style="text-align:center; font-style:italic;">— MY FIRST GIFT —</h3>
-            <p style="text-align:center; font-size:0.9rem;">A Digital Bouquet. Tap each flower to place it! 🌸</p>
+            <h3>— MY FIRST GIFT —</h3>
+            <p>A Digital Bouquet. Tap each flower to place it!</p>
             
             <div class="flowers-container" id="bouquet-area">
-                <!-- Bunga yang bisa dipencet (diisi JS) -->
+                <!-- SVG Flowers akan diinject via JS -->
             </div>
             
             <div class="message-box">
@@ -81,26 +79,26 @@
             </div>
         </div>
 
-        <!-- SECTION 2: SURAT -->
+        <!-- SURAT -->
         <div id="letter-section" class="section-glass">
             <h2>A Letter For You</h2>
             <div class="letter-card">
                 <p class="date">September 11</p>
-                <p>My dearest Evelyn, 🌼</p>
+                <p>My dearest Evelyn,</p>
                 <p>On this special day, I just want you to know how grateful I am to have you in my life. Having you as my friend is one of those little blessings that makes life feel a lot brighter.</p>
-                <p>Your laughter, your kindness, and even all the random things you do somehow make ordinary days more memorable. Thank you for being someone I can laugh with, talk to, and share countless moments with. 🌷</p>
+                <p>Your laughter, your kindness, and even all the random things you do somehow make ordinary days more memorable. Thank you for being someone I can laugh with, talk to, and share countless moments with.</p>
                 <p>Thank you for being you — for your kindness, your uniqueness, and the way you always bring your own light wherever you go. I hope you never forget how much you are appreciated by the people around you.</p>
                 <p>On your birthday, I wish you nothing but happiness, good health, beautiful memories, and the courage to chase every dream you have. May this new chapter of your life bring you countless reasons to smile and many moments worth remembering.</p>
-                <p>You deserve all the beautiful things life has to offer. Keep being the amazing person you are, Evelyn. Never change just to fit into someone else's world. 🌸</p>
-                <p>P.S. — Thank you for being such an amazing friend. Here's to more laughs, more memories, more random conversations, and many more birthdays to celebrate together. 💐</p>
-                <p style="font-size:1.2rem; font-weight:bold;">Happy Birthday, Evelyn! 🎂✨</p>
+                <p>You deserve all the beautiful things life has to offer. Keep being the amazing person you are, Evelyn. Never change just to fit into someone else's world.</p>
+                <p>P.S. — Thank you for being such an amazing friend. Here's to more laughs, more memories, more random conversations, and many more birthdays to celebrate together.</p>
+                <p style="font-size:1.2rem; font-weight:bold;">Happy Birthday, Evelyn!</p>
                 <p class="signature">With all my best wishes</p>
             </div>
         </div>
 
-        <!-- SECTION 3: GALERI FOTO -->
+        <!-- GALERI FOTO -->
         <div id="gallery-section" class="section-glass">
-            <h2 style="text-align:center;">Our Moments</h2>
+            <h2>Our Moments</h2>
             <div class="gallery-grid">
                 <div class="polaroid">
                     <img src="foto/foto1.jpg" alt="Foto 1">
@@ -117,40 +115,44 @@
             </div>
         </div>
 
-        <!-- SECTION 4: MUSIK -->
+        <!-- MUSIK -->
         <div id="music-section" class="section-glass glass">
-            <h2 style="text-align:center;">A Playlist For You</h2>
+            <h2>A Playlist For You</h2>
             
             <div class="vinyl-container">
                 <div class="vinyl-disc"></div>
             </div>
 
+            <div class="music-controls">
+                <button onclick="prevSong()">PREV</button>
+                <button onclick="togglePlay()" id="play-btn">PLAY</button>
+                <button onclick="nextSong()">NEXT</button>
+            </div>
+
             <div class="track-list" id="track-list">
-                <!-- Diisi via JS -->
+                <!-- Diisi JS -->
             </div>
         </div>
 
     </div>
 
-    <!-- POPUP / MODAL -->
+    <!-- MODAL -->
     <div id="modal-overlay">
         <div class="modal-content glass">
-            <div style="font-size: 50px;">🎂</div>
+            <div class="modal-cake"></div>
             <h2>Happy Birthday!</h2>
-            <p>The most special Evelyn 🌸</p>
-            <button onclick="closeModal()">Close ✕</button>
+            <p>The most special Evelyn</p>
+            <button onclick="closeModal()">Close X</button>
         </div>
     </div>
 
     <!-- MUSIC FLOATING -->
-    <div id="music-float" onclick="toggleMusicPlay()">
-        🎵
+    <div id="music-float" onclick="togglePlay()">
+        <div class="float-icon"></div>
     </div>
 
-    <!-- Audio Player -->
-    <audio id="audio-player" controls></audio>
+    <audio id="audio-player"></audio>
 
-    <!-- Menghubungkan JavaScript -->
     <script src="script.js"></script>
 </body>
-</html>
+                    </html>
