@@ -167,6 +167,7 @@ function nextSong() { currentSongIndex = (currentSongIndex + 1) % songs.length; 
 function prevSong() { currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length; playSong(currentSongIndex); }
 function updatePlayButton() { document.getElementById('play-btn').textContent = isPlaying ? '⏸' : '▶'; }
 
+// Progress Bar
 function updateProgressBar() {
     const audio = document.getElementById('audio-player');
     const progressFill = document.getElementById('progress-fill');
