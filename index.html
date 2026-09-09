@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Happy Birthday Evelyn 🌸</title>
     
-    <!-- CSS External -->
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
     <div class="app" id="app">
 
-        <!-- ===== LOADING SCREEN ===== -->
+        <!-- LOADING SCREEN -->
         <div id="loading-screen">
             <div class="lily-logo">
                 <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,8 +20,6 @@
                     <path d="M50 15 C35 32 18 42 18 58 C18 70 30 82 50 82 C70 82 82 70 82 58 C82 42 65 32 50 15Z"
                     fill="url(#lilyInner)" opacity="0.7" />
                     <circle cx="50" cy="55" r="6" fill="#f7d44a" opacity="0.8" />
-                    <path d="M50 55 L50 30 M50 55 L50 80 M50 55 L30 55 M50 55 L70 55"
-                    stroke="#f7d44a" stroke-width="1.5" opacity="0.4" />
                     <defs>
                         <linearGradient id="lilyGrad" x1="10" y1="10" x2="90" y2="90">
                             <stop offset="0%" stop-color="#f7a1b5" />
@@ -40,7 +37,7 @@
             </div>
         </div>
 
-        <!-- ===== PIN SCREEN ===== -->
+        <!-- PIN SCREEN -->
         <div id="pin-screen">
             <div class="pin-glass">
                 <h2>For You, My Love</h2>
@@ -65,17 +62,17 @@
                     <button class="pin-btn" data-value="7">7</button>
                     <button class="pin-btn" data-value="8">8</button>
                     <button class="pin-btn" data-value="9">9</button>
-                    <button class="pin-btn" data-value="clear" style="font-size:1rem;">⌫</button>
+                    <button class="pin-btn" data-value="clear">⌫</button>
                     <button class="pin-btn" data-value="0">0</button>
                     <button class="pin-btn gift-btn" data-value="gift">🎁</button>
                 </div>
 
                 <div class="pin-error" id="pinError">Incorrect code. Try again ❤️</div>
-                <div style="font-size:0.7rem;color:var(--text-light);opacity:0.4;margin-top:0.6rem;">Hint: our special date ❤️</div>
+                <div class="pin-hint">Hint: our special date ❤️</div>
             </div>
         </div>
 
-        <!-- ===== GIFT SCREEN ===== -->
+        <!-- GIFT SCREEN -->
         <div id="gift-screen">
             <div class="gift-box" id="giftBox">
                 <span class="gift-emoji">🎁</span>
@@ -83,11 +80,11 @@
             <div class="gift-prompt" id="giftPrompt">Tap to open your gift ✨</div>
         </div>
 
-        <!-- ===== MAIN CONTENT ===== -->
+        <!-- MAIN CONTENT -->
         <div id="main-content">
 
             <!-- HERO -->
-            <div class="hero">
+            <div class="hero scroll-animate">
                 <span class="sakura-left">🌸</span>
                 <span class="sakura-right">🌸</span>
                 <div class="hero-title">Your Special Day</div>
@@ -97,23 +94,20 @@
             </div>
 
             <!-- DIGITAL BOUQUET -->
-            <div class="bouquet-section" id="bouquetSection">
+            <div class="bouquet-section scroll-animate" id="bouquetSection">
                 <div class="bouquet-label">— My First Gift —</div>
                 <div class="bouquet-title">A Digital Bouquet</div>
                 <div class="bouquet-sub">Each flower holds a little message just for you</div>
 
                 <div class="bouquet-container">
-                    <div class="stem-area" id="stemArea">
-                        <!-- stems injected by JS -->
-                    </div>
-                    <div class="flower-choices" id="flowerChoices">
-                        <!-- flowers injected by JS -->
-                    </div>
+                    <div class="stem-area" id="stemArea"></div>
+                    <div class="flower-choices" id="flowerChoices"></div>
                 </div>
             </div>
 
             <!-- LIQUID GLASS CARD -->
-            <div class="liquid-card">
+            <div class="liquid-card scroll-animate">
+                <div class="glass-shine"></div>
                 <div class="card-label">— A little note —</div>
                 <div class="card-text">
                     Your cheerfulness is like a daisy — <span class="highlight">simple yet brightening every single day.</span>
@@ -121,10 +115,10 @@
             </div>
 
             <!-- LETTER -->
-            <div class="letter-section">
+            <div class="letter-section scroll-animate">
                 <div class="letter-title">A Letter For You</div>
                 <div class="letter-date">September 11</div>
-                <div class="letter-body">
+                <div class="letter-body" id="letterBody">
                     My dearest Evelyn, 🌼
 
                     On this special day, I just want you to know how grateful I am to have you in my life. Having you as my friend is one of those little blessings that makes life feel a lot brighter.
@@ -146,7 +140,7 @@
             </div>
 
             <!-- PHOTO -->
-            <div class="photo-section">
+            <div class="photo-section scroll-animate">
                 <div class="photo-frame" id="photoFrame">
                     <img src="assets/photo.jpg" alt="Memory photo" id="photoImg" 
                          onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect width=%22400%22 height=%22300%22 fill=%22%23d4c5b5%22/%3E%3Ctext x=%22200%22 y=%22150%22 font-family=%22Quicksand%22 font-size=%2220%22 fill=%22%235a3e3e%22 text-anchor=%22middle%22%3E📸 Your Photo Here%3C/text%3E%3C/svg%3E'" />
@@ -155,7 +149,8 @@
             </div>
 
             <!-- MUSIC PLAYER -->
-            <div class="music-section" id="musicSection">
+            <div class="music-section scroll-animate" id="musicSection">
+                <div class="glass-shine"></div>
                 <div class="music-header">
                     <span class="now-playing">♫ NOW PLAYING</span>
                     <span class="cassette-icon">📼</span>
@@ -166,32 +161,28 @@
                     <div class="track-artist" id="currentTrackArtist">Backstreet Boys</div>
 
                     <div class="music-controls">
-                        <button id="prevBtn" aria-label="Previous">⏮</button>
-                        <button class="play-btn" id="playBtn" aria-label="Play">▶</button>
-                        <button id="nextBtn" aria-label="Next">⏭</button>
+                        <button id="prevBtn">⏮</button>
+                        <button class="play-btn" id="playBtn">▶</button>
+                        <button id="nextBtn">⏭</button>
                     </div>
 
                     <div class="music-progress" id="progressContainer">
                         <div class="progress-bar" id="progressBar"></div>
                     </div>
 
-                    <div class="music-playlist" id="playlist">
-                        <!-- injected by JS -->
-                    </div>
+                    <div class="music-playlist" id="playlist"></div>
                 </div>
             </div>
 
             <!-- BACK BUTTON -->
             <button class="back-btn" id="backBtn">⟵ Back to start</button>
 
-        </div><!-- /main-content -->
+        </div>
 
-        <!-- hidden audio -->
         <audio id="audioPlayer" preload="metadata"></audio>
 
-    </div><!-- /app -->
+    </div>
 
-    <!-- ===== JAVASCRIPT External ===== -->
     <script src="script.js"></script>
 
 </body>
