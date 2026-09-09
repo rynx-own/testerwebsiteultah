@@ -1,189 +1,156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Happy Birthday Evelyn 🌸</title>
-    
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Evelyn</title>
+    <!-- Menghubungkan CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="app" id="app">
+    <!-- Background Flowers (Bunga Melayang) -->
+    <div class="flowers-bg" id="bg-flowers"></div>
 
-        <!-- LOADING SCREEN -->
-        <div id="loading-screen">
-            <div class="lily-logo">
-                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M50 10 C30 30 10 40 10 60 C10 75 25 90 50 90 C75 90 90 75 90 60 C90 40 70 30 50 10Z"
-                    fill="url(#lilyGrad)" opacity="0.9" />
-                    <path d="M50 15 C35 32 18 42 18 58 C18 70 30 82 50 82 C70 82 82 70 82 58 C82 42 65 32 50 15Z"
-                    fill="url(#lilyInner)" opacity="0.7" />
-                    <circle cx="50" cy="55" r="6" fill="#f7d44a" opacity="0.8" />
-                    <defs>
-                        <linearGradient id="lilyGrad" x1="10" y1="10" x2="90" y2="90">
-                            <stop offset="0%" stop-color="#f7a1b5" />
-                            <stop offset="100%" stop-color="#e8759a" />
-                        </linearGradient>
-                        <linearGradient id="lilyInner" x1="18" y1="18" x2="82" y2="82">
-                            <stop offset="0%" stop-color="#fce4ec" />
-                            <stop offset="100%" stop-color="#f8d7d7" />
-                        </linearGradient>
-                    </defs>
-                </svg>
+    <!-- SCREEN 1: LOADING -->
+    <div id="screen-loading" class="screen active">
+        <div class="logo">🌷</div>
+        <p>Preparing something special for you...</p>
+    </div>
+
+    <!-- SCREEN 2: PIN PASSWORD -->
+    <div id="screen-pin" class="screen">
+        <div class="glass">
+            <h2>For You, Evelyn</h2>
+            <p>Enter our secret code</p>
+            
+            <div class="pin-display" id="pin-display">
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
             </div>
-            <div class="loading-text">
-                Preparing something special for you<span class="loading-dots"></span>
+
+            <div class="pin-pad" id="pin-pad">
+                <button class="pin-btn" onclick="inputPin(1)">1</button>
+                <button class="pin-btn" onclick="inputPin(2)">2</button>
+                <button class="pin-btn" onclick="inputPin(3)">3</button>
+                <button class="pin-btn" onclick="inputPin(4)">4</button>
+                <button class="pin-btn" onclick="inputPin(5)">5</button>
+                <button class="pin-btn" onclick="inputPin(6)">6</button>
+                <button class="pin-btn" onclick="inputPin(7)">7</button>
+                <button class="pin-btn" onclick="inputPin(8)">8</button>
+                <button class="pin-btn" onclick="inputPin(9)">9</button>
+                <button class="pin-btn icon" onclick="removePin()">⌫</button>
+                <button class="pin-btn" onclick="inputPin(0)">0</button>
+                <button class="pin-btn icon" onclick="resetPin()">✕</button>
+            </div>
+            
+            <p class="hint">Hint: our special date 💗</p>
+        </div>
+    </div>
+
+    <!-- SCREEN 3: GIFT -->
+    <div id="screen-gift" class="screen" onclick="openGift()">
+        <p>✨ Opening your gift... ✨</p>
+        <div class="gift-box">🎁</div>
+    </div>
+
+    <!-- SCREEN 4: MAIN PAGE -->
+    <div id="screen-main" class="screen">
+        
+        <h1>Happy<br><span>Birthday</span><br>Evelyn</h1>
+        <div class="line"></div>
+        <p class="date">September 11 — The most special day</p>
+
+        <!-- SECTION 1: BUNGA -->
+        <div id="bouquet-section" class="section-glass glass">
+            <h3 style="text-align:center; font-style:italic;">— MY FIRST GIFT —</h3>
+            <p style="text-align:center; font-size:0.9rem;">A Digital Bouquet. Tap each flower to place it! 🌸</p>
+            
+            <div class="flowers-container" id="bouquet-area">
+                <!-- Bunga yang bisa dipencet (diisi JS) -->
+            </div>
+            
+            <div class="message-box">
+                <p>Your cheerfulness is like a daisy — simple yet brightening every single day.</p>
             </div>
         </div>
 
-        <!-- PIN SCREEN -->
-        <div id="pin-screen">
-            <div class="pin-glass">
-                <h2>For You, My Love</h2>
-                <p>Enter our secret code</p>
-
-                <div class="pin-display" id="pinDisplay">
-                    <span class="pin-dot" data-i="0"></span>
-                    <span class="pin-dot" data-i="1"></span>
-                    <span class="pin-dot" data-i="2"></span>
-                    <span class="pin-dot" data-i="3"></span>
-                    <span class="pin-dot" data-i="4"></span>
-                    <span class="pin-dot" data-i="5"></span>
-                </div>
-
-                <div class="pin-grid" id="pinGrid">
-                    <button class="pin-btn" data-value="1">1</button>
-                    <button class="pin-btn" data-value="2">2</button>
-                    <button class="pin-btn" data-value="3">3</button>
-                    <button class="pin-btn" data-value="4">4</button>
-                    <button class="pin-btn" data-value="5">5</button>
-                    <button class="pin-btn" data-value="6">6</button>
-                    <button class="pin-btn" data-value="7">7</button>
-                    <button class="pin-btn" data-value="8">8</button>
-                    <button class="pin-btn" data-value="9">9</button>
-                    <button class="pin-btn" data-value="clear">⌫</button>
-                    <button class="pin-btn" data-value="0">0</button>
-                    <button class="pin-btn gift-btn" data-value="gift">🎁</button>
-                </div>
-
-                <div class="pin-error" id="pinError">Incorrect code. Try again ❤️</div>
-                <div class="pin-hint">Hint: our special date ❤️</div>
+        <!-- SECTION 2: SURAT -->
+        <div id="letter-section" class="section-glass">
+            <h2>A Letter For You</h2>
+            <div class="letter-card">
+                <p class="date">September 11</p>
+                <p>My dearest Evelyn, 🌼</p>
+                <p>On this special day, I just want you to know how grateful I am to have you in my life. Having you as my friend is one of those little blessings that makes life feel a lot brighter.</p>
+                <p>Your laughter, your kindness, and even all the random things you do somehow make ordinary days more memorable. Thank you for being someone I can laugh with, talk to, and share countless moments with. 🌷</p>
+                <p>Thank you for being you — for your kindness, your uniqueness, and the way you always bring your own light wherever you go. I hope you never forget how much you are appreciated by the people around you.</p>
+                <p>On your birthday, I wish you nothing but happiness, good health, beautiful memories, and the courage to chase every dream you have. May this new chapter of your life bring you countless reasons to smile and many moments worth remembering.</p>
+                <p>You deserve all the beautiful things life has to offer. Keep being the amazing person you are, Evelyn. Never change just to fit into someone else's world. 🌸</p>
+                <p>P.S. — Thank you for being such an amazing friend. Here's to more laughs, more memories, more random conversations, and many more birthdays to celebrate together. 💐</p>
+                <p style="font-size:1.2rem; font-weight:bold;">Happy Birthday, Evelyn! 🎂✨</p>
+                <p class="signature">With all my best wishes</p>
             </div>
         </div>
 
-        <!-- GIFT SCREEN -->
-        <div id="gift-screen">
-            <div class="gift-box" id="giftBox">
-                <span class="gift-emoji">🎁</span>
+        <!-- SECTION 3: GALERI FOTO -->
+        <div id="gallery-section" class="section-glass">
+            <h2 style="text-align:center;">Our Moments</h2>
+            <div class="gallery-grid">
+                <div class="polaroid">
+                    <img src="foto/foto1.jpg" alt="Foto 1">
+                    <p>Our very first sunset together</p>
+                </div>
+                <div class="polaroid">
+                    <img src="foto/foto2.jpg" alt="Foto 2">
+                    <p>Our favourite cafe in the corner of the city</p>
+                </div>
+                <div class="polaroid">
+                    <img src="foto/foto3.jpg" alt="Foto 3">
+                    <p>First time at the beach, just the two of us</p>
+                </div>
             </div>
-            <div class="gift-prompt" id="giftPrompt">Tap to open your gift ✨</div>
         </div>
 
-        <!-- MAIN CONTENT -->
-        <div id="main-content">
-
-            <!-- HERO -->
-            <div class="hero scroll-animate">
-                <span class="sakura-left">🌸</span>
-                <span class="sakura-right">🌸</span>
-                <div class="hero-title">Your Special Day</div>
-                <div class="hero-name">Happy Birthday <span>Evelyn</span></div>
-                <div class="hero-date">SEPTEMBER 11 — THE MOST SPECIAL DAY</div>
-                <div class="hero-divider"></div>
+        <!-- SECTION 4: MUSIK -->
+        <div id="music-section" class="section-glass glass">
+            <h2 style="text-align:center;">A Playlist For You</h2>
+            
+            <div class="vinyl-container">
+                <div class="vinyl-disc"></div>
             </div>
 
-            <!-- DIGITAL BOUQUET -->
-            <div class="bouquet-section scroll-animate" id="bouquetSection">
-                <div class="bouquet-label">— My First Gift —</div>
-                <div class="bouquet-title">A Digital Bouquet</div>
-                <div class="bouquet-sub">Each flower holds a little message just for you</div>
-
-                <div class="bouquet-container">
-                    <div class="stem-area" id="stemArea"></div>
-                    <div class="flower-choices" id="flowerChoices"></div>
-                </div>
+            <div class="track-list" id="track-list">
+                <!-- Diisi via JS -->
             </div>
-
-            <!-- LIQUID GLASS CARD -->
-            <div class="liquid-card scroll-animate">
-                <div class="glass-shine"></div>
-                <div class="card-label">— A little note —</div>
-                <div class="card-text">
-                    Your cheerfulness is like a daisy — <span class="highlight">simple yet brightening every single day.</span>
-                </div>
-            </div>
-
-            <!-- LETTER -->
-            <div class="letter-section scroll-animate">
-                <div class="letter-title">A Letter For You</div>
-                <div class="letter-date">September 11</div>
-                <div class="letter-body" id="letterBody">
-                    My dearest Evelyn, 🌼
-
-                    On this special day, I just want you to know how grateful I am to have you in my life. Having you as my friend is one of those little blessings that makes life feel a lot brighter.
-
-                    Your laughter, your kindness, and even all the random things you do somehow make ordinary days more memorable. Thank you for being someone I can laugh with, talk to, and share countless moments with. 🌷
-
-                    Thank you for being you — for your kindness, your uniqueness, and the way you always bring your own light wherever you go. I hope you never forget how much you are appreciated by the people around you.
-
-                    On your birthday, I wish you nothing but happiness, good health, beautiful memories, and the courage to chase every dream you have. May this new chapter of your life bring you countless reasons to smile and many moments worth remembering.
-
-                    You deserve all the beautiful things life has to offer. Keep being the amazing person you are, Evelyn. Never change just to fit into someone else's world. 🌸
-
-                    P.S. — Thank you for being such an amazing friend. Here's to more laughs, more memories, more random conversations, and many more birthdays to celebrate together. 💐
-
-                    Happy Birthday, Evelyn! 🎂✨
-
-                    With all my best wishes
-                </div>
-            </div>
-
-            <!-- PHOTO -->
-            <div class="photo-section scroll-animate">
-                <div class="photo-frame" id="photoFrame">
-                    <img src="assets/photo.jpg" alt="Memory photo" id="photoImg" 
-                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect width=%22400%22 height=%22300%22 fill=%22%23d4c5b5%22/%3E%3Ctext x=%22200%22 y=%22150%22 font-family=%22Quicksand%22 font-size=%2220%22 fill=%22%235a3e3e%22 text-anchor=%22middle%22%3E📸 Your Photo Here%3C/text%3E%3C/svg%3E'" />
-                    <span class="photo-hint">✨ tap to zoom</span>
-                </div>
-            </div>
-
-            <!-- MUSIC PLAYER -->
-            <div class="music-section scroll-animate" id="musicSection">
-                <div class="glass-shine"></div>
-                <div class="music-header">
-                    <span class="now-playing">♫ NOW PLAYING</span>
-                    <span class="cassette-icon">📼</span>
-                </div>
-
-                <div class="music-player-ui">
-                    <div class="track-name" id="currentTrackName">Shape Of My Heart</div>
-                    <div class="track-artist" id="currentTrackArtist">Backstreet Boys</div>
-
-                    <div class="music-controls">
-                        <button id="prevBtn">⏮</button>
-                        <button class="play-btn" id="playBtn">▶</button>
-                        <button id="nextBtn">⏭</button>
-                    </div>
-
-                    <div class="music-progress" id="progressContainer">
-                        <div class="progress-bar" id="progressBar"></div>
-                    </div>
-
-                    <div class="music-playlist" id="playlist"></div>
-                </div>
-            </div>
-
-            <!-- BACK BUTTON -->
-            <button class="back-btn" id="backBtn">⟵ Back to start</button>
-
         </div>
-
-        <audio id="audioPlayer" preload="metadata"></audio>
 
     </div>
 
-    <script src="script.js"></script>
+    <!-- POPUP / MODAL -->
+    <div id="modal-overlay">
+        <div class="modal-content glass">
+            <div style="font-size: 50px;">🎂</div>
+            <h2>Happy Birthday!</h2>
+            <p>The most special Evelyn 🌸</p>
+            <button onclick="closeModal()">Close ✕</button>
+        </div>
+    </div>
 
+    <!-- MUSIC FLOATING -->
+    <div id="music-float" onclick="toggleMusicPlay()">
+        🎵
+    </div>
+
+    <!-- Audio Player -->
+    <audio id="audio-player" controls></audio>
+
+    <!-- Menghubungkan JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
