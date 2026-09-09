@@ -13,7 +13,7 @@
 
     <!-- SCREEN 1: LOADING -->
     <div id="screen-loading" class="screen active">
-        <div class="logo">LOGO</div>
+        <div class="logo">🌷</div>
         <p>Preparing something special for you...</p>
     </div>
 
@@ -40,22 +40,18 @@
                 <button class="pin-btn" onclick="inputPin(7)">7</button>
                 <button class="pin-btn" onclick="inputPin(8)">8</button>
                 <button class="pin-btn" onclick="inputPin(9)">9</button>
-                <button class="pin-btn icon" onclick="removePin()">X</button>
+                <button class="pin-btn icon" onclick="removePin()">⌫</button>
                 <button class="pin-btn" onclick="inputPin(0)">0</button>
-                <button class="pin-btn icon" onclick="resetPin()">DEL</button>
+                <button class="pin-btn icon" onclick="resetPin()">✕</button>
             </div>
-            <p class="hint">Hint: our special date</p>
+            <p class="hint">Hint: our special date 💗</p>
         </div>
     </div>
 
-    <!-- SCREEN 3: GIFT -->
+    <!-- SCREEN 3: GIFT (Konsep Awal) -->
     <div id="screen-gift" class="screen" onclick="openGift()">
-        <p>Opening your gift...</p>
-        <div class="gift-box" id="gift-box">
-            <div class="lid"></div>
-            <div class="base"></div>
-            <div class="surprise" id="surprise-effect">SURPRISE!</div>
-        </div>
+        <p>✨ Opening your gift... ✨</p>
+        <div class="gift-box">🎁</div>
     </div>
 
     <!-- SCREEN 4: MAIN -->
@@ -65,13 +61,13 @@
         <div class="line"></div>
         <p class="date">September 11 — The most special day</p>
 
-        <!-- BUNGA (SVG) -->
+        <!-- BUNGA -->
         <div id="bouquet-section" class="section-glass glass">
             <h3>— MY FIRST GIFT —</h3>
-            <p>A Digital Bouquet. Tap each flower to place it!</p>
+            <p>A Digital Bouquet. Tap each flower to place it! 🌸</p>
             
             <div class="flowers-container" id="bouquet-area">
-                <!-- SVG Flowers akan diinject via JS -->
+                <!-- Bunga diisi JS -->
             </div>
             
             <div class="message-box">
@@ -84,14 +80,14 @@
             <h2>A Letter For You</h2>
             <div class="letter-card">
                 <p class="date">September 11</p>
-                <p>My dearest Evelyn,</p>
+                <p>My dearest Evelyn, 🌼</p>
                 <p>On this special day, I just want you to know how grateful I am to have you in my life. Having you as my friend is one of those little blessings that makes life feel a lot brighter.</p>
-                <p>Your laughter, your kindness, and even all the random things you do somehow make ordinary days more memorable. Thank you for being someone I can laugh with, talk to, and share countless moments with.</p>
+                <p>Your laughter, your kindness, and even all the random things you do somehow make ordinary days more memorable. Thank you for being someone I can laugh with, talk to, and share countless moments with. 🌷</p>
                 <p>Thank you for being you — for your kindness, your uniqueness, and the way you always bring your own light wherever you go. I hope you never forget how much you are appreciated by the people around you.</p>
                 <p>On your birthday, I wish you nothing but happiness, good health, beautiful memories, and the courage to chase every dream you have. May this new chapter of your life bring you countless reasons to smile and many moments worth remembering.</p>
-                <p>You deserve all the beautiful things life has to offer. Keep being the amazing person you are, Evelyn. Never change just to fit into someone else's world.</p>
-                <p>P.S. — Thank you for being such an amazing friend. Here's to more laughs, more memories, more random conversations, and many more birthdays to celebrate together.</p>
-                <p style="font-size:1.2rem; font-weight:bold;">Happy Birthday, Evelyn!</p>
+                <p>You deserve all the beautiful things life has to offer. Keep being the amazing person you are, Evelyn. Never change just to fit into someone else's world. 🌸</p>
+                <p>P.S. — Thank you for being such an amazing friend. Here's to more laughs, more memories, more random conversations, and many more birthdays to celebrate together. 💐</p>
+                <p style="font-size:1.2rem; font-weight:bold;">Happy Birthday, Evelyn! 🎂✨</p>
                 <p class="signature">With all my best wishes</p>
             </div>
         </div>
@@ -124,9 +120,9 @@
             </div>
 
             <div class="music-controls">
-                <button onclick="prevSong()">PREV</button>
-                <button onclick="togglePlay()" id="play-btn">PLAY</button>
-                <button onclick="nextSong()">NEXT</button>
+                <button onclick="prevSong()">⏮</button>
+                <button onclick="togglePlay()" id="play-btn">▶</button>
+                <button onclick="nextSong()">⏭</button>
             </div>
 
             <div class="track-list" id="track-list">
@@ -139,20 +135,20 @@
     <!-- MODAL -->
     <div id="modal-overlay">
         <div class="modal-content glass">
-            <div class="modal-cake"></div>
+            <div style="font-size: 50px;">🎂</div>
             <h2>Happy Birthday!</h2>
-            <p>The most special Evelyn</p>
-            <button onclick="closeModal()">Close X</button>
+            <p>The most special Evelyn 🌸</p>
+            <button onclick="closeModal()">Close ✕</button>
         </div>
     </div>
 
     <!-- MUSIC FLOATING -->
     <div id="music-float" onclick="togglePlay()">
-        <div class="float-icon"></div>
+        🎵
     </div>
 
     <audio id="audio-player"></audio>
 
     <script src="script.js"></script>
 </body>
-                    </html>
+</html>
