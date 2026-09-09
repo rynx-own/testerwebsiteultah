@@ -6,15 +6,15 @@
     const SONGS = [{
         name: 'Shape Of My Heart',
         artist: 'Backstreet Boys',
-        url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' // Ganti dengan link lagu kamu
+        url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
     }, {
         name: 'Angel Baby',
         artist: 'Troye Sivan',
-        url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' // Ganti dengan link lagu kamu
+        url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'
     }, {
         name: 'My Love',
         artist: 'Westlife',
-        url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' // Ganti dengan link lagu kamu
+        url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
     }];
 
     const FLOWERS = [
@@ -43,7 +43,7 @@
     const flowerChoices = document.getElementById('flowerChoices');
 
     const photoFrame = document.getElementById('photoFrame');
-
+    
     const audio = document.getElementById('audioPlayer');
     const playBtn = document.getElementById('playBtn');
     const prevBtn = document.getElementById('prevBtn');
@@ -54,8 +54,7 @@
     const currentTrackArtist = document.getElementById('currentTrackArtist');
     const playlistEl = document.getElementById('playlist');
     const backBtn = document.getElementById('backBtn');
-
-    // ===== STATE =====
+    const letterBody = document.getElementById('letterBody');
     let pinEntry = '';
     let isGiftOpened = false;
     let currentSongIndex = 0;
@@ -63,6 +62,43 @@
     let usedFlowers = 0;
     const MAX_STEMS = 6;
     let flowerData = [];
+
+    function initScrollAnimation() {
+        const elements = document.querySelectorAll('.scroll-animate');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Add delay based on index
+                    const delay = (index % 5) * 0.1;
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, delay * 1000);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        elements.forEach(el => observer.observe(el));
+    }
+
+    // ===== LETTER ANIMATION =====
+    function initLetterAnimation() {
+        if (!letterBody) return;
+        const text = letterBody.textContent;
+        const lines = text.split('\n').filter(line => line.trim() !== '');
+        
+        letterBody.innerHTML = '';
+        lines.forEach((line, index) => {
+            const p = document.createElement('p');
+            p.className = 'letter-line';
+            p.textContent = line;
+            p.style.animationDelay = `${index * 0.08}s`;
+            letterBody.appendChild(p);
+        });
+    }
 
     // ===== LOADING =====
     setTimeout(() => {
@@ -118,19 +154,19 @@
     // ===== GIFT =====
     function spawnSparkles() {
         const emojis = ['✨', '🌟', '💫', '⭐', '🎉', '💖'];
-        for (let i = 0; i < 12; i++) {
+        for (let i = 0; i < 15; i++) {
             const span = document.createElement('span');
             span.className = 'gift-sparkle';
             span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
             const angle = Math.random() * 2 * Math.PI;
-            const dist = 40 + Math.random() * 100;
+            const dist = 40 + Math.random() * 120;
             const tx = Math.cos(angle) * dist;
-            const ty = Math.sin(angle) * dist - 30;
+            const ty = Math.sin(angle) * dist - 40;
             span.style.setProperty('--tx', tx + 'px');
             span.style.setProperty('--ty', ty + 'px');
             span.style.left = '50%';
             span.style.top = '50%';
-            span.style.fontSize = (1.2 + Math.random() * 1.2) + 'rem';
+            span.style.fontSize = (1.2 + Math.random() * 1.5) + 'rem';
             span.style.animationDuration = (0.6 + Math.random() * 0.5) + 's';
             giftBox.appendChild(span);
             setTimeout(() => span.remove(), 1200);
@@ -150,6 +186,8 @@
             initBouquet();
             initMusic();
             initPhoto();
+            initLetterAnimation();
+            initScrollAnimation();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }, 1000);
     });
@@ -217,8 +255,15 @@
         if (usedFlowers >= Math.min(flowerData.length, MAX_STEMS)) {
             setTimeout(() => {
                 const msg = document.createElement('div');
-                msg.style.cssText =
-                    'width:100%;text-align:center;margin-top:0.6rem;font-size:0.9rem;color:var(--rose);font-weight:600;animation:fadeIn 0.6s ease;';
+                msg.style.cssText = `
+                    width:100%;
+                    text-align:center;
+                    margin-top:0.6rem;
+                    font-size:0.9rem;
+                    color:var(--rose);
+                    font-weight:600;
+                    animation:fadeInUp 0.6s ease;
+                `;
                 msg.textContent = '💐 Your bouquet is complete! 💐';
                 const container = document.querySelector('.bouquet-container');
                 const existing = container.querySelector('.complete-msg');
@@ -235,11 +280,6 @@
         photoFrame.addEventListener('click', () => {
             zoomed = !zoomed;
             photoFrame.classList.toggle('zoomed', zoomed);
-            if (zoomed) {
-                photoFrame.style.boxShadow = '0 12px 60px rgba(0,0,0,0.2)';
-            } else {
-                photoFrame.style.boxShadow = '0 8px 40px rgba(0,0,0,0.1)';
-            }
         });
     }
 
@@ -329,7 +369,7 @@
                     <div class="pl-name">${song.name}</div>
                     <div class="pl-artist">${song.artist}</div>
                 </div>
-                <span class="pl-active" style="opacity:0;">♫</span>
+                <span class="pl-active">♫</span>
             `;
             item.addEventListener('click', () => {
                 if (currentSongIndex !== idx) {
@@ -356,7 +396,7 @@
                 active.style.opacity = '1';
                 item.style.background = 'rgba(255,255,255,0.35)';
             } else {
-                active.style.opacity = '0';
+                active.style.opacity = '0.2';
                 item.style.background = 'rgba(255,255,255,0.2)';
             }
         });
@@ -391,7 +431,6 @@
         if (msg) msg.remove();
         
         photoFrame.classList.remove('zoomed');
-        photoFrame.style.boxShadow = '0 8px 40px rgba(0,0,0,0.1)';
         
         loadSong(0);
         if (isPlaying) {
