@@ -1,4 +1,4 @@
-// DATA LAGU (Ganti Link di sini!)
+// DATA LAGU (Ganti link di bawah dengan link lagu kamu)
 const songs = [
     { title: "Shape Of My Heart", artist: "Backstreet Boys", src: "musik/lagu1.mp3" },
     { title: "Angel Baby", artist: "Troye Sivan", src: "musik/lagu2.mp3" },
@@ -10,12 +10,8 @@ let pinCode = "";
 let isPlaying = false;
 const targetPin = "110911";
 
-// SVG BUNGA (Tanpa Emoji, tapi gambar vektor)
-const flowerSVGs = [
-    `<svg viewBox="0 0 100 100"><circle cx="50" cy="30" r="20" fill="#ff8ba7"/><circle cx="70" cy="50" r="20" fill="#ff8ba7"/><circle cx="30" cy="50" r="20" fill="#ff8ba7"/><circle cx="50" cy="70" r="20" fill="#ff8ba7"/><circle cx="50" cy="50" r="15" fill="#f9d56e"/></svg>`, // Bunga Pink
-    `<svg viewBox="0 0 100 100"><ellipse cx="50" cy="40" rx="20" ry="30" fill="#ff6b8a"/><ellipse cx="50" cy="40" rx="20" ry="30" fill="#ff6b8a" transform="rotate(90 50 50)"/><circle cx="50" cy="50" r="15" fill="#fff"/></svg>`, // Bunga Merah Muda
-    `<svg viewBox="0 0 100 100"><path d="M20,50 Q50,10 80,50 Q50,90 20,50" fill="#f9d56e"/><circle cx="50" cy="50" r="15" fill="#b5651d"/></svg>`, // Bunga Tulip
-];
+// Emoji Bunga (Otomatis jadi Emoji iPhone di perangkat Apple)
+const flowerEmojis = ['🌼', '🌸', '🌷', '🌹', '🌻', '💐'];
 
 // 1. PIN LOGIC
 function inputPin(num) {
@@ -25,7 +21,7 @@ function inputPin(num) {
         if (pinCode.length === 6) {
             setTimeout(() => {
                 if (pinCode === targetPin) goToScreen('screen-gift');
-                else { alert("Kode salah!"); resetPin(); }
+                else { alert("Kode salah! Coba lagi."); resetPin(); }
             }, 200);
         }
     }
@@ -48,28 +44,16 @@ function goToScreen(id) {
             startMusicPlayer();
             triggerModal();
             spawnBackgroundFlowers();
-            initScrollAnimation(); // Animasi Scroll
-        }, 2000); // Dikasih waktu buat liat efek kado
+            initScrollAnimation();
+        }, 2500);
     }
 }
 
 function openGift() {
-    const giftScreen = document.getElementById('screen-gift');
-    const giftBox = document.getElementById('gift-box');
-    
-    // Animasi Kado: Tutup terbang, muncul kejutan
-    giftScreen.classList.add('clicked');
-    
-    setTimeout(() => {
-        goToScreen('screen-main');
-        startMusicPlayer();
-        triggerModal();
-        spawnBackgroundFlowers();
-        initScrollAnimation();
-    }, 1500); // Setelah animasi kado selesai
+    goToScreen('screen-gift'); // Konsep awal: klik kado langsung pindah
 }
 
-// 3. BUNGA DIGITAL (SVG)
+// 3. BUNGA DIGITAL
 function spawnFlowers() {
     const bouquetArea = document.getElementById('bouquet-area');
     bouquetArea.innerHTML = '';
@@ -77,21 +61,17 @@ function spawnFlowers() {
     for (let i = 0; i < 8; i++) {
         const btn = document.createElement('div');
         btn.className = 'digital-flower';
-        btn.innerHTML = flowerSVGs[i % flowerSVGs.length];
+        btn.textContent = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
         btn.style.left = Math.random() * 80 + '%';
         btn.style.top = Math.random() * 80 + '%';
         btn.style.bottom = 'auto';
         
         btn.onclick = function(e) {
             e.stopPropagation();
-            // Animasikan jatuh ke bawah (tangkai)
             btn.style.left = (20 + Math.random() * 60) + '%';
             btn.style.top = 'auto';
             btn.style.bottom = '10px';
             btn.classList.add('placed');
-            
-            // Bunga yang menempel jadi semakin cantik
-            btn.style.transform = 'rotate(0deg) scale(1.2)';
         };
         
         bouquetArea.appendChild(btn);
@@ -99,7 +79,7 @@ function spawnFlowers() {
 }
 spawnFlowers();
 
-// 4. MUSIK (Dengan tombol Play, Next, Prev)
+// 4. MUSIK (Tombol Play, Next, Prev)
 function startMusicPlayer() {
     const trackList = document.getElementById('track-list');
     trackList.innerHTML = '';
@@ -149,7 +129,7 @@ function prevSong() {
 
 function updatePlayButton() {
     const btn = document.getElementById('play-btn');
-    btn.textContent = isPlaying ? 'PAUSE' : 'PLAY';
+    btn.textContent = isPlaying ? '⏸' : '▶';
 }
 
 // 5. MODAL
@@ -160,7 +140,7 @@ function closeModal() {
     document.getElementById('modal-overlay').classList.remove('active');
 }
 
-// 6. BUNGA BACKGROUND (SVG Kecil)
+// 6. BUNGA BACKGROUND MELAYANG
 function spawnBackgroundFlowers() {
     const container = document.getElementById('bg-flowers');
     container.innerHTML = '';
@@ -168,23 +148,22 @@ function spawnBackgroundFlowers() {
     for (let i = 0; i < 20; i++) {
         const flower = document.createElement('div');
         flower.className = 'floating-flower';
-        flower.innerHTML = flowerSVGs[Math.floor(Math.random() * flowerSVGs.length)];
+        flower.textContent = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
         flower.style.left = Math.random() * 100 + 'vw';
         flower.style.animationDuration = (Math.random() * 10 + 5) + 's';
         flower.style.animationDelay = (Math.random() * 5) + 's';
+        flower.style.fontSize = (Math.random() * 20 + 15) + 'px';
         container.appendChild(flower);
     }
 }
 
-// 7. ANIMASI SCROLL (Reveal Element)
+// 7. ANIMASI SCROLL
 function initScrollAnimation() {
     const sections = document.querySelectorAll('.section-glass');
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
+            if (entry.isIntersecting) entry.target.classList.add('visible');
         });
     }, { threshold: 0.1 });
     
