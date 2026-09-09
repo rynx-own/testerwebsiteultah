@@ -1,4 +1,3 @@
-// DATA LAGU (Ganti link dengan link lagu kamu)
 const songs = [
     { title: "Shape Of My Heart", artist: "Backstreet Boys", src: "musik/lagu1.mp3" },
     { title: "Angel Baby", artist: "Troye Sivan", src: "musik/lagu2.mp3" },
@@ -11,7 +10,6 @@ let isPlaying = false;
 const targetPin = "110911";
 const flowerEmojis = ['🌼', '🌸', '🌷', '🌹', '🌻', '💐'];
 
-// Pesan bunga sesuai request
 const flowerMessages = {
     '🌼': "“Like a daisy, may you always find a reason to bloom, even on ordinary days.”",
     '🌻': "“May you always turn toward the light, and may happiness always find its way to you.”",
@@ -21,7 +19,6 @@ const flowerMessages = {
     '💐': "“A little bouquet for someone who deserves a world full of beautiful things.”"
 };
 
-// 1. PIN LOGIC
 function inputPin(num) {
     if (pinCode.length < 6) {
         pinCode += num;
@@ -41,7 +38,6 @@ function updatePinDisplay() {
     dots.forEach((dot, i) => i < pinCode.length ? dot.classList.add('filled') : dot.classList.remove('filled'));
 }
 
-// 2. NAVIGASI
 function goToScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
@@ -58,7 +54,6 @@ function goToScreen(id) {
     }
 }
 
-// 3. GIFT ANIMATION
 function openGift() {
     const giftScreen = document.getElementById('screen-gift');
     giftScreen.classList.add('clicked');
@@ -70,25 +65,12 @@ function openGift() {
         spawnBackgroundFlowers();
         initScrollAnimation();
         startTypingEffect();
-    }, 1200); // Setelah efek ledakan selesai
+    }, 1200);
 }
 
-// 4. BUNGA DIGITAL
 function spawnFlowers() {
     const bouquetArea = document.getElementById('bouquet-area');
     bouquetArea.innerHTML = '';
-    const stemHtml = `
-        <div class="stems">
-            <svg viewBox="0 0 200 100" width="100%" height="100%" style="position:absolute; bottom:0;">
-                <path d="M100,100 Q90,50 70,20" stroke="#4a8c5c" stroke-width="3" fill="none"/>
-                <path d="M100,100 Q110,60 130,30" stroke="#4a8c5c" stroke-width="3" fill="none"/>
-                <path d="M100,100 Q80,70 50,50" stroke="#4a8c5c" stroke-width="3" fill="none"/>
-                <path d="M100,100 Q120,70 150,50" stroke="#4a8c5c" stroke-width="3" fill="none"/>
-                <path d="M100,100 Q95,40 100,20" stroke="#4a8c5c" stroke-width="4" fill="none"/>
-                <circle cx="100" cy="100" r="20" fill="#ff8ba7" opacity="0.8"/>
-            </svg>
-        </div>`;
-    bouquetArea.innerHTML = stemHtml;
     
     for (let i = 0; i < 6; i++) {
         const btn = document.createElement('div');
@@ -102,18 +84,15 @@ function spawnFlowers() {
         
         btn.onclick = function(e) {
             e.stopPropagation();
-            // Animasi jatuh ke tangkai
             btn.style.left = (20 + Math.random() * 60) + '%';
             btn.style.top = 'auto';
-            btn.style.bottom = '90px';
+            btn.style.bottom = '90px'; // Menempel di atas tangkai
             btn.classList.add('placed');
             
-            // Muncul pesan
             const msgBox = document.getElementById('flower-message-box');
             msgBox.innerHTML = `<span class="glow">✦</span> ${flowerMessages[emoji] || flowerMessages['🌷']} <span class="glow">✦</span>`;
             msgBox.classList.add('show');
             
-            // Reset setelah beberapa detik
             setTimeout(() => {
                 msgBox.classList.remove('show');
             }, 5000);
@@ -124,7 +103,6 @@ function spawnFlowers() {
 }
 spawnFlowers();
 
-// 5. MUSIK
 function startMusicPlayer() {
     const trackList = document.getElementById('track-list');
     trackList.innerHTML = '';
@@ -167,7 +145,6 @@ function nextSong() { currentSongIndex = (currentSongIndex + 1) % songs.length; 
 function prevSong() { currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length; playSong(currentSongIndex); }
 function updatePlayButton() { document.getElementById('play-btn').textContent = isPlaying ? '⏸' : '▶'; }
 
-// Progress Bar
 function updateProgressBar() {
     const audio = document.getElementById('audio-player');
     const progressFill = document.getElementById('progress-fill');
@@ -189,11 +166,9 @@ function updateProgressBar() {
     });
 }
 
-// 6. MODAL
 function triggerModal() { setTimeout(() => document.getElementById('modal-overlay').classList.add('active'), 1000); }
 function closeModal() { document.getElementById('modal-overlay').classList.remove('active'); }
 
-// 7. ZOOM FOTO
 function openPhotoZoom(src, caption) {
     document.getElementById('zoom-photo-img').src = src;
     document.getElementById('zoom-photo-caption').textContent = caption;
@@ -201,7 +176,6 @@ function openPhotoZoom(src, caption) {
 }
 function closePhotoZoom() { document.getElementById('photo-zoom-overlay').classList.remove('active'); }
 
-// 8. BACKGROUND BUNGA
 function spawnBackgroundFlowers() {
     const container = document.getElementById('bg-flowers');
     container.innerHTML = '';
@@ -217,7 +191,6 @@ function spawnBackgroundFlowers() {
     }
 }
 
-// 9. SCROLL ANIMATION
 function initScrollAnimation() {
     const sections = document.querySelectorAll('.reveal-on-scroll');
     const observer = new IntersectionObserver((entries) => {
@@ -226,7 +199,6 @@ function initScrollAnimation() {
     sections.forEach(section => observer.observe(section));
 }
 
-// 10. TYPING EFFECT
 function startTypingEffect() {
     const text = "SEPTEMBER 11 — THE MOST SPECIAL DAY";
     const element = document.getElementById('typing-date');
@@ -240,14 +212,12 @@ function startTypingEffect() {
         } else {
             clearInterval(typeInterval);
             setTimeout(() => {
-                // Hilangkan kursor
                 element.style.borderRight = 'none';
             }, 500);
         }
     }, 80);
 }
 
-// 11. LOADING
 window.onload = function() {
     setTimeout(() => goToScreen('screen-pin'), 3000);
 };
