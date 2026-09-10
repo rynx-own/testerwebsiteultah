@@ -1,9 +1,27 @@
+// ==========================================
+// 🎵 DAFTAR LAGU & ARTIS (SUDAH DIISI OLEH ASISTEN)
+// ==========================================
 const songs = [
-    { title: "Shape Of My Heart", artist: "Backstreet Boys", src: "musik/lagu1.mp3" },
-    { title: "Angel Baby", artist: "Troye Sivan", src: "musik/lagu2.mp3" },
-    { title: "My Love", artist: "Westlife", src: "musik/lagu3.mp3" }
+    { 
+        title: "Shape Of My Heart", 
+        artist: "Backstreet Boys", 
+        src: "https://videotourl.com/audio/1789000165093-d8347254-2ca2-4aab-9df6-4dbc83405ddc.mp3"
+    },
+    { 
+        title: "Can't Help Fall In Love", 
+        artist: "Elvis Presley", 
+        src: "https://videotourl.com/audio/1789000314537-52d49c9d-3189-4d87-a217-941559c12ff9.mp3"
+    },
+    { 
+        title: "Stand By Me", 
+        artist: "Oasis", 
+        src: "https://videotourl.com/audio/1789000415388-f01aa450-483a-476f-af6d-4d10d94b3277.mp3"
+    }
 ];
 
+// ==========================================
+// JANGAN UBAH BAGIAN DI BAWAH INI!
+// ==========================================
 let currentSongIndex = 0;
 let pinCode = "";
 let isPlaying = false;
@@ -19,6 +37,7 @@ const flowerMessages = {
     '💐': "“A little bouquet for someone who deserves a world full of beautiful things.”"
 };
 
+// 1. PIN LOGIC
 function inputPin(num) {
     if (pinCode.length < 6) {
         pinCode += num;
@@ -38,6 +57,7 @@ function updatePinDisplay() {
     dots.forEach((dot, i) => i < pinCode.length ? dot.classList.add('filled') : dot.classList.remove('filled'));
 }
 
+// 2. NAVIGASI & GIFT
 function goToScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
@@ -68,12 +88,11 @@ function openGift() {
     }, 1200);
 }
 
-// LOGIKA BUNGA: MENEMPEL DI UJUNG TANGKAI (BENTUK U)
+// 3. BUNGA MENEMPEL DI TANGKAI
 function spawnFlowers() {
     const bouquetArea = document.getElementById('bouquet-area');
-    bouquetArea.innerHTML = ''; // Reset area
+    bouquetArea.innerHTML = ''; 
 
-    // 5 Ujung tangkai (dalam persen, dari SVG)
     const stemPositions = [
         { left: 50, bottom: 55 },  // Tengah
         { left: 30, bottom: 40 },  // Kiri Bawah
@@ -89,23 +108,18 @@ function spawnFlowers() {
         btn.textContent = emoji;
         btn.dataset.emoji = emoji;
         
-        // Posisi awal tersebar
         btn.style.left = Math.random() * 80 + '%';
         btn.style.top = Math.random() * 80 + '%';
         
         btn.onclick = function(e) {
             e.stopPropagation();
-            
-            // Pilih titik tangkai yang belum dipakai
             const target = stemPositions[Math.floor(Math.random() * stemPositions.length)];
             
-            // Animasi bunga meluncur ke ujung tangkai
             btn.style.left = target.left + '%';
             btn.style.top = 'auto';
             btn.style.bottom = target.bottom + '%';
             btn.classList.add('placed');
             
-            // Muncul pesan
             const msgBox = document.getElementById('flower-message-box');
             msgBox.innerHTML = `<span class="glow">✦</span> ${flowerMessages[emoji] || flowerMessages['🌷']} <span class="glow">✦</span>`;
             msgBox.classList.add('show');
@@ -120,6 +134,7 @@ function spawnFlowers() {
 }
 spawnFlowers();
 
+// 4. MUSIK (Otomatis Sinkron Durasi & Menit Detik)
 function startMusicPlayer() {
     const trackList = document.getElementById('track-list');
     trackList.innerHTML = '';
@@ -139,6 +154,13 @@ function playSong(index) {
     
     const audio = document.getElementById('audio-player');
     audio.src = songs[index].src;
+    
+    // Otomatis atur durasi menit & detik setelah metadata lagu dimuat
+    audio.onloadedmetadata = function() {
+        document.getElementById('duration-time').textContent = formatTime(audio.duration);
+        document.getElementById('current-time').textContent = formatTime(0);
+    };
+
     audio.play();
     isPlaying = true;
     updatePlayButton();
@@ -162,30 +184,32 @@ function nextSong() { currentSongIndex = (currentSongIndex + 1) % songs.length; 
 function prevSong() { currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length; playSong(currentSongIndex); }
 function updatePlayButton() { document.getElementById('play-btn').textContent = isPlaying ? '⏸' : '▶'; }
 
+// Progress Bar Sinkron Otomatis
 function updateProgressBar() {
     const audio = document.getElementById('audio-player');
     const progressFill = document.getElementById('progress-fill');
     const currentTime = document.getElementById('current-time');
-    const durationTime = document.getElementById('duration-time');
     
     audio.addEventListener('timeupdate', () => {
         const percent = (audio.currentTime / audio.duration) * 100;
         progressFill.style.width = percent + '%';
-        
-        const formatTime = (secs) => {
-            const m = Math.floor(secs / 60);
-            const s = Math.floor(secs % 60);
-            return `${m}:${s < 10 ? '0' : ''}${s}`;
-        };
-        
         currentTime.textContent = formatTime(audio.currentTime);
-        durationTime.textContent = formatTime(audio.duration);
     });
 }
 
+// Fungsi format waktu (menit:detik)
+function formatTime(secs) {
+    if (isNaN(secs) || secs < 0) return "0:00";
+    const m = Math.floor(secs / 60);
+    const s = Math.floor(secs % 60);
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+}
+
+// 5. MODAL
 function triggerModal() { setTimeout(() => document.getElementById('modal-overlay').classList.add('active'), 1000); }
 function closeModal() { document.getElementById('modal-overlay').classList.remove('active'); }
 
+// 6. ZOOM FOTO
 function openPhotoZoom(src, caption) {
     document.getElementById('zoom-photo-img').src = src;
     document.getElementById('zoom-photo-caption').textContent = caption;
@@ -193,6 +217,7 @@ function openPhotoZoom(src, caption) {
 }
 function closePhotoZoom() { document.getElementById('photo-zoom-overlay').classList.remove('active'); }
 
+// 7. BUNGA BACKGROUND
 function spawnBackgroundFlowers() {
     const container = document.getElementById('bg-flowers');
     container.innerHTML = '';
@@ -208,6 +233,7 @@ function spawnBackgroundFlowers() {
     }
 }
 
+// 8. SCROLL
 function initScrollAnimation() {
     const sections = document.querySelectorAll('.reveal-on-scroll');
     const observer = new IntersectionObserver((entries) => {
@@ -216,6 +242,7 @@ function initScrollAnimation() {
     sections.forEach(section => observer.observe(section));
 }
 
+// 9. TYPING
 function startTypingEffect() {
     const text = "SEPTEMBER 11 — THE MOST SPECIAL DAY";
     const element = document.getElementById('typing-date');
@@ -235,6 +262,7 @@ function startTypingEffect() {
     }, 80);
 }
 
+// 10. LOADING
 window.onload = function() {
     setTimeout(() => goToScreen('screen-pin'), 3000);
 };
